@@ -22,7 +22,6 @@ is an application for **Web coffee and personal project practice skills in the f
 - Order Products
 
 ## Installation
-### Clone the repository
 ```bash
 git clone https://github.com/MchmdGalih/InCafe.git
 1. npm install
