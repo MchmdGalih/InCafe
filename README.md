@@ -11,8 +11,10 @@ is an application for **Web coffee and personal project practice skills in the f
 - **JWT (JSON Web Token)**
 
 **Frontend:**
-- **COMING SOON**
+- **Vue 3 JS**
+- **Tailwind Css**
 
+  
 ## Features
 - Authenticate & Authorization
 - CRUD Product 
