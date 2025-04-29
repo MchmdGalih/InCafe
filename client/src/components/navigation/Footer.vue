@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div
-      class="grid grid-cols-2 lg:grid-cols-4 grid-flow-row font-primary bg-amber-100 font-secondary px-8 gap-2 py-28 sm:px-24 lg:px-16 lg:py-10"
+      class="grid grid-cols-2 lg:grid-cols-4 grid-flow-row bg-amber-100 font-secondary px-8 gap-2 py-28 sm:px-24 lg:px-16 lg:py-10"
     >
       <!-- Main Info -->
       <div class="col-span-1 space-y-4">
