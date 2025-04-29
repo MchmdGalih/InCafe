@@ -1,8 +1,8 @@
 <template>
-  <header class="sticky inset-0 z-10 glass">
-    <div class="navbar lg:px-8 px-2">
+  <header class="sticky inset-0 z-10 glass lg:px-12">
+    <div class="navbar">
       <div class="flex-1">
-        <a class="btn btn-ghost text-xl">InCafe</a>
+        <a class="btn btn-ghost text-2xl font-primary">InCafe</a>
       </div>
       <div class="flex gap-x-4">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">

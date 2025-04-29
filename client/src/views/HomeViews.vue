@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import HeroSection from '@/components/landing/HeroSection.vue'
 import MainLayout from '@/layouts/mainLayout.vue'
 </script>
 
 <template>
   <MainLayout>
     <template #content>
-      <div class="h-[100vh] border flex justify-center items-center">CONTENT</div>
+      <HeroSection />
     </template>
   </MainLayout>
 </template>
