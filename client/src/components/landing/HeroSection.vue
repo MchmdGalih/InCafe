@@ -18,7 +18,7 @@
         <h1
           class="text-start font-extrabold lg:text-8xl md:text-6xl text-4xl md:-z-10 -z-10 max-w-sm"
         >
-          WELCOME THE
+          WELCOME SHOPE
         </h1>
         <h1 class="text-end font-extrabold lg:text-8xl md:text-6xl text-4xl md:-z-10 -z-10">
           TO COFFEE INCAFE
@@ -31,7 +31,7 @@
       >
         <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, dignissimos.</h1>
         <div
-          class="p-2 rounded-md flex justify-center items-center gap-2 cursor-pointer hover:bg-amber-950 hover:text-white transition-all duration-500 ease-in-out shadow-md shadow-amber-950"
+          class="p-2 rounded-md flex justify-center items-center gap-2 cursor-pointer hover:bg-amber-900 hover:text-white transition-all duration-500 ease-in-out shadow-md shadow-amber-950"
         >
           <button class="cursor-pointer font-bold">ORDER NOW</button>
           <span class="p-2 text-center">

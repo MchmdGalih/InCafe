@@ -39,10 +39,10 @@
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a class="justify-between"> Profile </a>
+              <RouterLink to="/" class="justify-between"> Profile </RouterLink>
             </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li><RouterLink to="/">Settings</RouterLink></li>
+            <li><RouterLink to="/sign-in">Login</RouterLink></li>
           </ul>
         </div>
       </div>
