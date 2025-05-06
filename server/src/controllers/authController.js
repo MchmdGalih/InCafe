@@ -13,14 +13,21 @@ const signInHandler = async (req, res) => {
       password: validatedData.password,
     });
 
-    const { id, username } = user;
+    const { id, username, email } = user;
     const role = user.Role?.name;
 
     const accessToken = await createToken({ id, username, role });
+    const userData = {
+      id,
+      username,
+      email,
+      role,
+    };
 
     return res.status(200).json({
       message: "User login success",
       data: {
+        user: userData,
         accessToken,
       },
     });
