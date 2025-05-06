@@ -39,13 +39,31 @@
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <RouterLink to="/" class="justify-between"> Profile </RouterLink>
+              <RouterLink to="/" class="justify-between">
+                <span>Profile</span>
+                <p v-if="isAuthenticated">{{ store.currentUser.username }}</p>
+              </RouterLink>
             </li>
             <li><RouterLink to="/">Settings</RouterLink></li>
-            <li><RouterLink to="/sign-in">Login</RouterLink></li>
+            <li v-if="isAuthenticated">
+              <button @click="handlerLogout" class="text-red-500 hover:underline">Logout</button>
+            </li>
+            <li v-else><RouterLink to="/sign-in">Login</RouterLink></li>
           </ul>
         </div>
       </div>
     </div>
   </header>
 </template>
+
+<script setup>
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
+
+const store = useAuthStore()
+const { isAuthenticated } = storeToRefs(store)
+
+const handlerLogout = () => {
+  return store.logout()
+}
+</script>
