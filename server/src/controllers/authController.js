@@ -33,7 +33,7 @@ const signInHandler = async (req, res) => {
     });
   } catch (error) {
     return res
-      .status(500)
+      .status(404)
       .json({ message: "Something went wrong", error: error.message });
   }
 };
