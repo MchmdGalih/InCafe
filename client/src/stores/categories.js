@@ -12,10 +12,9 @@ export const useCategoriesStore = defineStore('categories', {
         const response = await api.get('/category')
         const { data } = response.data
         this.categories = data
-
         return response
       } catch (error) {
-        console.log(error)
+        throw new error(error)
       }
     },
   },

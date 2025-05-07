@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <HeroSection />
-      <CategorySection />
+      <ProductSection />
     </template>
   </MainLayout>
 </template>
@@ -10,7 +10,7 @@
 <script setup>
 import MainLayout from '@/layouts/mainLayout.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
-import CategorySection from '@/components/landing/CategorySection.vue'
+import ProductSection from '@/components/landing/ProductSection.vue'
 import { onMounted } from 'vue'
 import { toast } from 'vue3-toastify'
 

@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky inset-0 z-10 glass lg:px-12">
+  <header class="sticky inset-0 z-10 bg-amber-900 text-white lg:px-12">
     <div class="navbar">
       <div class="flex-1">
         <a class="btn btn-ghost text-2xl font-primary">InCafe</a>
