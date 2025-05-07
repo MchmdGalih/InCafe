@@ -17,7 +17,10 @@ const app = createApp(App)
 
 library.add(fas, fab, far)
 
-
+app.use(Vue3Toastify, {
+    autoClose: 1000,
+    theme: "auto",
+});
 
 app.use(pinia)
 app.use(router)

@@ -2,13 +2,15 @@
   <MainLayout>
     <template #content>
       <HeroSection />
+      <CategorySection />
     </template>
   </MainLayout>
 </template>
 
 <script setup>
-import HeroSection from '@/components/landing/HeroSection.vue'
 import MainLayout from '@/layouts/mainLayout.vue'
+import HeroSection from '@/components/landing/HeroSection.vue'
+import CategorySection from '@/components/landing/CategorySection.vue'
 import { onMounted } from 'vue'
 import { toast } from 'vue3-toastify'
 
