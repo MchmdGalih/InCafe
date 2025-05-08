@@ -26,6 +26,7 @@ module.exports = {
       productsDummy.push({
         name: faker.lorem.sentence(2),
         categoryId: faker.helpers.arrayElement(categories).id,
+        description: faker.lorem.sentence(5),
         price: faker.number.bigInt({
           min: 15000,
           max: 55000,

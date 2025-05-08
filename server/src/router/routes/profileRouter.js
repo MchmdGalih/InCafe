@@ -5,7 +5,7 @@ const {
   createOrUpdateProfileHandler,
 } = require("../../controllers/profileController");
 const { validateProfile } = require("../../middleware/validation");
-const { uploadImageProfile } = require("../../middleware/uploadFile");
+const { uploadImage } = require("../../middleware/uploadFile");
 
 const profileRouter = express.Router();
 
@@ -14,7 +14,7 @@ profileRouter
   .get(authCheck, getProfileHandler)
   .put(
     authCheck,
-    uploadImageProfile,
+    uploadImage("image"),
     validateProfile,
     createOrUpdateProfileHandler
   );

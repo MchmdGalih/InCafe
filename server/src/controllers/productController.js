@@ -7,20 +7,12 @@ const {
   deleteProduct,
   updateProduct,
 } = require("../service/productService");
-const { Products, Categories } = require("../models");
-const {
-  uploadToCloudinary,
-  isDummyImage,
-  getPublicIdFromUrl,
-  deleteImageFromCloudinary,
-} = require("../utils/cloudinary");
 
 const createProductHandler = async (req, res) => {
   try {
-    const files = req?.files;
-
+    const file = req?.file;
     const validatedMatched = matchedData(req);
-    const newProduct = await createProduct(validatedMatched, files);
+    const newProduct = await createProduct(validatedMatched, file);
 
     return res.status(200).json({
       message: "Product created successfully",
@@ -77,25 +69,14 @@ const getProductByIdHandler = async (req, res) => {
 const updateProductHandler = async (req, res) => {
   try {
     const { id } = req.params;
-
     const validatedMatched = matchedData(req);
-    const { replaceIndex } = req.body;
-    const files = req?.files;
+    const file = req?.file;
 
-    const product = await updateProduct(
-      id,
-      validatedMatched,
-      files,
-      replaceIndex
-    );
+    const product = await updateProduct(id, validatedMatched, file);
 
-    const productData = {
-      ...product.toJSON(),
-      image_cover: JSON.parse(product.image_cover),
-    };
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Product berhasil diperbarui",
-      data: productData,
+      data: product,
     });
   } catch (error) {
     return res.status(404).json({

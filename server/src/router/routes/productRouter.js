@@ -6,7 +6,7 @@ const {
   deleteProductHandler,
   updateProductHandler,
 } = require("../../controllers/productController");
-const { uploadImageProduct } = require("../../middleware/uploadFile");
+const { uploadImage } = require("../../middleware/uploadFile");
 const { validateProducts } = require("../../middleware/validation");
 const { authCheck, checkIsAdmin } = require("../../middleware/auth");
 
@@ -16,7 +16,7 @@ productRouter.post(
   "/add",
   authCheck,
   checkIsAdmin,
-  uploadImageProduct,
+  uploadImage("image_cover"),
   validateProducts,
   createProductHandler
 );
@@ -26,7 +26,7 @@ productRouter.put(
   "/edit/:id",
   authCheck,
   checkIsAdmin,
-  uploadImageProduct,
+  uploadImage("image_cover"),
   validateProducts,
   updateProductHandler
 );
