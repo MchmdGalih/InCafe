@@ -7,9 +7,15 @@ export const useProductStore = defineStore('products', {
   }),
 
   actions: {
-    async getAllProducts() {
+    async getAllProducts(query = {}) {
+      const params = {}
+
+      if (query.category) {
+        params.category = query.category
+      }
+
       try {
-        const response = await api.get('/product')
+        const response = await api.get('/product', { params })
         const { data } = response.data
         this.products = data
         return response

@@ -121,7 +121,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules.value, payload)
 
 const togglePassword = () => {
-  showPassword.value = !showPassword.value
+  showPassword.value = true
 }
 
 const registerHandler = async () => {
@@ -130,7 +130,7 @@ const registerHandler = async () => {
 
     if (!isValidate) return
 
-    isLoading.value = !isLoading.value
+    isLoading.value = true
     await store.register(payload)
 
     return router.replace({

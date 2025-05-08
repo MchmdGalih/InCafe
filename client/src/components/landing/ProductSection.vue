@@ -8,7 +8,11 @@
       <CategorySection @select-category-id="handleSelectCategory" />
     </div>
 
-    <div class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4">
+    <div v-if="products.length == 0 && !isLoading">
+      <p class="text-center text-sm p-4">Sorry, products not available</p>
+    </div>
+
+    <div class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4" v-else>
       <ProductSkeleton v-if="isLoading" v-for="i in 6" :key="i" />
       <ProductCard v-for="product in products" :key="product.id" :product="product" v-else />
     </div>
@@ -21,7 +25,7 @@ import ProductCard from '@/components/card/ProductCard.vue'
 import ProductSkeleton from '@/components/skeleton/ProductSkeleton.vue'
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 const selectCategoryId = ref(null)
 const handleSelectCategory = (id) => {
@@ -33,15 +37,19 @@ const productsStore = useProductStore()
 const { products } = storeToRefs(productsStore)
 
 const getProducts = async () => {
-  isLoading.value = !isLoading.value
+  isLoading.value = true
   try {
-    await productsStore.getAllProducts()
+    await productsStore.getAllProducts({ category: selectCategoryId.value })
   } catch (error) {
     return error.message
   } finally {
     isLoading.value = false
   }
 }
+
+watch(selectCategoryId, () => {
+  getProducts()
+})
 
 onMounted(() => {
   getProducts()

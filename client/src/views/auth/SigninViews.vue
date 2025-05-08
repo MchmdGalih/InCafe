@@ -107,7 +107,7 @@ const loginHandler = async () => {
     const isValidate = await v$.value.$validate()
 
     if (!isValidate) return
-    isLoading.value = !isLoading.value
+    isLoading.value = true
     await store.login(payload)
 
     return router.replace({
@@ -124,7 +124,7 @@ const loginHandler = async () => {
 }
 
 const togglePassword = () => {
-  showPassword.value = !showPassword.value
+  showPassword.value = true
 }
 
 onMounted(() => {})
