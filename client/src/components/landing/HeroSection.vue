@@ -1,5 +1,7 @@
 <template>
-  <div class="w-screen grid lg:grid-cols-2 gap-4 lg:py-12 py-8 px-16">
+  <div
+    class="w-screen h-screen grid lg:grid-cols-2 place-content-center items-center gap-4 lg:py-12 py-8 px-16"
+  >
     <section class="space-y-2 order-2 lg:order-1">
       <div class="w-full">
         <h1
@@ -16,23 +18,25 @@
         </p>
       </div>
       <div class="space-x-4 font-secondary flex lg:justify-start justify-center items-center">
-        <button
+        <RouterLink
+          to="/sign-in"
           class="border text-black py-2 px-8 rounded-full shadow-2xl cursor-pointer hover:bg-amber-900 hover:text-white transition-all duration-500 ease-in-out"
         >
           Login
-        </button>
-        <button
+        </RouterLink>
+        <RouterLink
+          to="/order"
           class="bg-soft-white py-2 px-4 rounded-full cursor-pointer hover:bg-amber-900 hover:text-white transition-all duration-500 ease-in-out"
         >
           Order Now
-        </button>
+        </RouterLink>
       </div>
     </section>
     <section
       class="relative order-1 lg:order-2 lg:col-start-2 col-start-1 flex justify-center items-center"
     >
       <div>
-        <article class="lg:w-96 lg:h-80 md:w-72 md:h-72 w-48 h-48">
+        <article class="lg:w-full lg:h-full md:w-72 md:h-72 w-48 h-48">
           <img :src="coffee" alt="coffee" class="w-full h-full object-cover" />
         </article>
       </div>

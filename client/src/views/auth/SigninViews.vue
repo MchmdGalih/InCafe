@@ -124,7 +124,7 @@ const loginHandler = async () => {
 }
 
 const togglePassword = () => {
-  showPassword.value = true
+  showPassword.value = !showPassword.value
 }
 
 onMounted(() => {})

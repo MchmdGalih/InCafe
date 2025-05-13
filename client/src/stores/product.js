@@ -17,7 +17,7 @@ export const useProductStore = defineStore('products', {
       try {
         const response = await api.get('/product', { params })
         const { data } = response.data
-        this.products = data
+        this.products = data.filter((product) => product.stock > 0)
         return response
       } catch (error) {
         throw new Error(error)

@@ -121,7 +121,7 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules.value, payload)
 
 const togglePassword = () => {
-  showPassword.value = true
+  showPassword.value = !showPassword.value
 }
 
 const registerHandler = async () => {

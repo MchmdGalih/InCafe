@@ -12,20 +12,34 @@
     </div>
 
     <div class="flex justify-between items-center gap-2">
-      <span class="text-center py-2 text-sm font-extralight">
+      <span :class="classCategory" class="text-center py-2 text-sm font-bold">
         {{ product.Category.name }}
       </span>
-      <p class="font-light text-sm">Stock: {{ product.stock }}</p>
+      <p class="font-light text-sm" :class="product.stock <= 10 ? 'text-red-500' : ''">
+        Stock: {{ product.stock }}
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
 import { formatToIdr } from '@/services/formatRp'
+import { computed } from 'vue'
 
 const props = defineProps({
   product: {
     type: Object,
   },
+})
+
+const categoryColors = {
+  coffee: 'text-amber-900 ',
+  snacks: 'text-amber-400',
+  foods: 'text-green-800',
+}
+
+const classCategory = computed(() => {
+  const key = props.product.Category.name.toLowerCase() || ''
+  return categoryColors[key] || 'text-blue-500'
 })
 </script>
