@@ -11,6 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", mainRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port http://localhost:${PORT}`);
+// });
