@@ -16,7 +16,10 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    use_env_variable: "NEON_DATABASE_URL",
+    username: "neondb_owner",
+    password: "npg_fmb0IFq7SNXV",
+    database: "neondb",
+    host: "ep-bitter-tree-a1nfhq7g-pooler.ap-southeast-1.aws.neon.tech",
     dialect: "postgres",
     dialectOptions: {
       ssl: {

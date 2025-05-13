@@ -13,6 +13,7 @@ app.use("/api/v1", mainRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from Vercel!");
+  
 });
 
 module.exports = app;
