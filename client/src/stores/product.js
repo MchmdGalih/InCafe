@@ -23,5 +23,15 @@ export const useProductStore = defineStore('products', {
         throw new Error(error)
       }
     },
+
+    async getProductById(id) {
+      try {
+        const response = await api.get(`/product/${id}`)
+        const { data } = response.data
+        return data
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
   },
 })

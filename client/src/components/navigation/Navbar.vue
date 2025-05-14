@@ -44,7 +44,9 @@
                 <p v-if="isAuthenticated">{{ store.currentUser.username }}</p>
               </RouterLink>
             </li>
-            <li><RouterLink to="/">Settings</RouterLink></li>
+            <li v-if="isAuthenticated && store?.currentUser?.role === 'admin'">
+              <RouterLink to="/">Dashboard</RouterLink>
+            </li>
             <li v-if="isAuthenticated">
               <button @click="handlerLogout" class="text-red-500 hover:underline">Logout</button>
             </li>
