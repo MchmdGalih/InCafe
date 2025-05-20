@@ -8,13 +8,15 @@
       <CategorySection @select-category-id="handleSelectCategory" />
     </div>
 
+    <Search @handle-search="handleSearch" />
+
     <div v-if="products.length == 0 && !isLoading">
       <p class="text-center text-sm p-4">Sorry, products not available</p>
     </div>
 
     <div class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4" v-else>
       <ProductSkeleton v-if="isLoading" v-for="i in 6" :key="i" />
-      <ProductCard v-for="product in products" :key="product.id" :product="product" v-else />
+      <ProductCard v-for="product in filterdProducts" :key="product.id" :product="product" v-else />
     </div>
   </section>
 </template>
@@ -23,18 +25,30 @@
 import CategorySection from '@/components/landing/CategorySection.vue'
 import ProductCard from '@/components/card/ProductCard.vue'
 import ProductSkeleton from '@/components/skeleton/ProductSkeleton.vue'
+import Search from './Search.vue'
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+const productsStore = useProductStore()
+const { products } = storeToRefs(productsStore)
 
 const selectCategoryId = ref(null)
+const keyword = ref('')
 const handleSelectCategory = (id) => {
   return (selectCategoryId.value = id)
 }
 
+const handleSearch = (value) => {
+  keyword.value = value
+}
+
+const filterdProducts = computed(() => {
+  return products.value.filter((product) =>
+    product.name.toLowerCase().includes(keyword.value.toLowerCase()),
+  )
+})
+
 const isLoading = ref(false)
-const productsStore = useProductStore()
-const { products } = storeToRefs(productsStore)
 
 const getProducts = async () => {
   isLoading.value = true
