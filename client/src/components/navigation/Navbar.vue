@@ -5,7 +5,12 @@
         <a class="btn btn-ghost text-2xl font-primary">InCafe</a>
       </div>
       <div class="flex gap-x-4">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle" @click="showCart">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn btn-ghost btn-circle"
+          @click="$emit('toggle-cart')"
+        >
           <div class="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,11 +70,7 @@ import { storeToRefs } from 'pinia'
 const store = useAuthStore()
 const { isAuthenticated } = storeToRefs(store)
 
-const emits = defineEmits(['toggleCart'])
-
-const showCart = () => {
-  emits('toggleCart')
-}
+defineEmits(['toggle-cart'])
 
 const handlerLogout = () => {
   return store.logout()
