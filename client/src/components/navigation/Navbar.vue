@@ -1,11 +1,11 @@
 <template>
-  <header class="sticky inset-0 z-10 lg:px-12">
-    <div class="navbar bg-amber-900 rounded-md text-white">
+  <header class="sticky inset-0 z-10">
+    <div class="navbar bg-amber-900 py-4 text-white">
       <div class="flex-1">
         <a class="btn btn-ghost text-2xl font-primary">InCafe</a>
       </div>
       <div class="flex gap-x-4">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle" @click="showCart">
           <div class="indicator">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +64,12 @@ import { storeToRefs } from 'pinia'
 
 const store = useAuthStore()
 const { isAuthenticated } = storeToRefs(store)
+
+const emits = defineEmits(['toggleCart'])
+
+const showCart = () => {
+  emits('toggleCart')
+}
 
 const handlerLogout = () => {
   return store.logout()

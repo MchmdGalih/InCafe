@@ -20,6 +20,5 @@ const emits = defineEmits(['handleSearch'])
 const handleSearchProduct = () => {
   if (searchValue.value === '') return
   emits('handleSearch', searchValue.value)
-  console.log('dari anak', searchValue)
 }
 </script>

@@ -11,6 +11,7 @@
 import MainLayout from '@/layouts/mainLayout.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
 import ProductSection from '@/components/landing/ProductSection.vue'
+
 import { onMounted } from 'vue'
 import { toast } from 'vue3-toastify'
 

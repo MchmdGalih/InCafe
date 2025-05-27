@@ -43,9 +43,11 @@ const handleSearch = (value) => {
 }
 
 const filterdProducts = computed(() => {
-  return products.value.filter((product) =>
-    product.name.toLowerCase().includes(keyword.value.toLowerCase()),
-  )
+  if (!keyword.value.trim()) {
+    return products.value
+  }
+
+  return products.value.filter((product) => product.name.includes(keyword.value.toLowerCase()))
 })
 
 const isLoading = ref(false)
