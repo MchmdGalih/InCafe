@@ -26,7 +26,9 @@
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            <span class="badge badge-sm indicator-item">0</span>
+            <span v-if="items.length" class="badge badge-sm indicator-item bg-red-600 text-white">
+              {{ items.length }}
+            </span>
           </div>
         </div>
 
@@ -41,10 +43,10 @@
           </div>
           <ul
             tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-black font-secondary"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-99 mt-3 w-52 p-2 shadow text-black font-secondary"
           >
             <li>
-              <RouterLink to="/" class="justify-between">
+              <RouterLink to="/profile" class="justify-between">
                 <span>Profile</span>
                 <p v-if="isAuthenticated">{{ store.currentUser.username }}</p>
               </RouterLink>
@@ -65,7 +67,11 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/auth'
+import { useStoreCart } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
+
+const storeCart = useStoreCart()
+const { items } = storeToRefs(storeCart)
 
 const store = useAuthStore()
 const { isAuthenticated } = storeToRefs(store)

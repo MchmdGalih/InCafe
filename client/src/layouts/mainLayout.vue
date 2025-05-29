@@ -2,7 +2,7 @@
   <!-- NAVBAR -->
   <Navbar @toggle-cart="toggleCart" />
   <CartSection :is-show-cart="isShowCart" @close-cart="toggleCart" />
-  <main>
+  <main class="overflow-x-hidden relative">
     <slot name="content" />
   </main>
 

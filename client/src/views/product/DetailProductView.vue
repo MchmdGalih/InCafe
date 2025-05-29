@@ -57,7 +57,9 @@
             </div>
             <div class="flex gap-4">
               <button
-                class="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-xl transition duration-300"
+                :disabled="!isAuthenticated"
+                @click="handleAddCart"
+                class="flex-1 bg-yellow-400 cursor-pointer hover:bg-yellow-500 text-black font-semibold disabled:cursor-not-allowed py-3 px-6 rounded-xl transition duration-300 disabled"
               >
                 Add to Cart
               </button>
@@ -80,13 +82,24 @@ import MainLayout from '@/layouts/mainLayout.vue'
 import { formatToIdr } from '@/services/formatRp'
 import { useProductStore } from '@/stores/product'
 import { computed, onMounted, ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useStoreCart } from '@/stores/cart'
+import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
+const authStore = useAuthStore()
+const storeCart = useStoreCart()
+const { isAuthenticated } = storeToRefs(authStore)
 
 const route = useRoute()
 const id = route.params.id
 const product = ref({})
 const productStore = useProductStore()
+
 const qty = ref(0)
+
+const handleAddCart = () => {
+  storeCart.addItem(product.value, qty.value)
+}
 
 const handleGetProductById = async (id) => {
   try {
