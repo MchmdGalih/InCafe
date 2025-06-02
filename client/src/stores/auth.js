@@ -42,7 +42,10 @@ export const useAuthStore = defineStore('auth', {
 
     logout() {
       toast.success('Logout success', {
-        onClose: () => router.replace('/sign-in'),
+        onClose: () => {
+          console.log('toast test')
+          router.replace('/sign-in')
+        },
       })
       this.$reset()
     },

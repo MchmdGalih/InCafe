@@ -101,7 +101,7 @@ const handleAddCart = () => {
   storeCart.addItem(product.value, qty.value)
 }
 
-const handleGetProductById = async (id) => {
+const handleGetProductById = async () => {
   try {
     const response = await productStore.getProductById(id)
     product.value = response
@@ -122,6 +122,6 @@ const classCategory = computed(() => {
 })
 
 onMounted(() => {
-  handleGetProductById(id)
+  handleGetProductById()
 })
 </script>

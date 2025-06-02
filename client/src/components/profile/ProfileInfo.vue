@@ -8,7 +8,7 @@
           v-if="!props.preview"
           class="w-full h-full bg-amber-700 text-4xl text-white flex justify-center items-center text-uppercase"
         >
-          <h1>Test</h1>
+          <h1>{{ props.user.username[0] }}</h1>
         </div>
         <img :src="props.preview" alt="img-profile" class="w-full h-full object-cover" v-else />
         <div
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="badge badge-outline badge-success">Admin</div>
+      <div class="badge badge-outline badge-success">{{ props.user.role }}</div>
     </div>
     <div class="border rounded-md shadow-md w-full">
       <div class="p-2 w-fit">
@@ -41,20 +41,26 @@
             <span class="w-16 sm:w-24 inline-flex justify-between">
               Username
               <span>:</span> </span
-            >&nbsp;
+            >&nbsp;{{ props.user.username }}
           </div>
 
           <div>
             <span class="w-16 sm:w-24 inline-flex justify-between">
               Email
               <span>:</span> </span
-            >&nbsp;
+            >&nbsp;{{ props.user.email }}
           </div>
-          <div>
+          <div v-if="props.profile">
             <span class="w-16 sm:w-24 inline-flex justify-between">
               Phone
               <span>:</span> </span
-            >&nbsp;
+            >&nbsp; {{ props.profile.phoneNumber }}
+          </div>
+          <div v-else>
+            <span class="w-16 sm:w-24 inline-flex justify-between">
+              Phone
+              <span>:</span> </span
+            >&nbsp; -
           </div>
         </div>
       </div>
@@ -63,8 +69,15 @@
 </template>
 
 <script setup>
-const props = defineProps(['preview', 'payloadImage'])
+// const props = defineProps(['preview', 'payloadImage', 'user'])
+const props = defineProps({
+  preview: String,
+  payloadImage: File,
+  user: Object,
+  profile: Object,
+})
 const emits = defineEmits(['upload-image', 'remove-image'])
+console.log('user', props.profile)
 
 const uploadImage = (e) => {
   let file = e.target.files[0]
