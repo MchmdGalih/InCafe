@@ -41,7 +41,9 @@
           <div class="w-full flex flex-col p-2">
             <h2 class="font-bold font-secondary">{{ product.name }}</h2>
             <div class="flex items-center justify-between">
-              <p class="font-secondary text-red-400 font-bold">{{ formatToIdr(totalPriceItem) }}</p>
+              <p class="font-secondary text-red-400 font-bold">
+                {{ formatToIdr(product.price * product.qty) }}
+              </p>
               <div class="flex items-center bg-gray-300 rounded-md p-2">
                 <button class="p-1 cursor-pointer" @click="handleDecrementQty(product.id)">
                   -
@@ -56,6 +58,9 @@
         </div>
       </section>
       <div v-if="carts.length !== 0" class="sticky bottom-0 w-full lg:w-2/5 sm:w-2/4 bg-white p-4">
+        <p class="font-secondary font-bold text-xl text-end mb-2 border-b-2">
+          Total: {{ formatToIdr(totalPriceItem) }}
+        </p>
         <button class="btn btn-md btn-neutral w-full">Checkout</button>
       </div>
       <section

@@ -39,6 +39,12 @@
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
               <img
+                v-if="isAuthenticated && profile"
+                alt="Tailwind CSS Navbar component"
+                :src="profile.image"
+              />
+              <img
+                v-else
                 alt="Tailwind CSS Navbar component"
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
@@ -71,11 +77,15 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 import { useStoreCart } from '@/stores/cart'
+import { useProfileStore } from '@/stores/profile'
 import { storeToRefs } from 'pinia'
 
 const storeCart = useStoreCart()
 const { carts } = storeToRefs(storeCart)
+const profileStore = useProfileStore()
+const { profile } = storeToRefs(profileStore)
 
+console.log('profile', profile.value)
 const store = useAuthStore()
 const { isAuthenticated } = storeToRefs(store)
 
