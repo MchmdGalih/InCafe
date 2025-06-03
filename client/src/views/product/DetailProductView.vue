@@ -89,16 +89,18 @@ import { useRoute } from 'vue-router'
 const authStore = useAuthStore()
 const storeCart = useStoreCart()
 const { isAuthenticated } = storeToRefs(authStore)
+import { toast } from 'vue3-toastify'
 
 const route = useRoute()
 const id = route.params.id
 const product = ref({})
 const productStore = useProductStore()
 
-const qty = ref(0)
+const qty = ref(1)
 
 const handleAddCart = () => {
   storeCart.addItem(product.value, qty.value)
+  toast.success('Product added to cart')
 }
 
 const handleGetProductById = async () => {

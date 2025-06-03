@@ -17,5 +17,14 @@ export const useCategoriesStore = defineStore('categories', {
         throw new error(error)
       }
     },
+
+    async getCategoryById(id) {
+      try {
+        const response = await api.get(`/category/${id}`)
+        console.log(response)
+      } catch (error) {
+        throw new error(error)
+      }
+    },
   },
 })

@@ -69,7 +69,6 @@
 </template>
 
 <script setup>
-// const props = defineProps(['preview', 'payloadImage', 'user'])
 const props = defineProps({
   preview: String,
   payloadImage: File,
@@ -77,7 +76,6 @@ const props = defineProps({
   profile: Object,
 })
 const emits = defineEmits(['upload-image', 'remove-image'])
-console.log('user', props.profile)
 
 const uploadImage = (e) => {
   let file = e.target.files[0]
