@@ -1,9 +1,9 @@
 import { api } from '@/services/api'
 import { defineStore } from 'pinia'
+import { useProfileStore } from '@/stores/profile'
 import { toast } from 'vue3-toastify'
 import { useRouter } from 'vue-router'
-
-const router = useRouter()
+import { useStoreCart } from './cart'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -41,13 +41,17 @@ export const useAuthStore = defineStore('auth', {
     },
 
     logout() {
+      const router = useRouter()
+      const profileStore = useProfileStore()
+      const cartStore = useStoreCart()
+      profileStore.$reset()
+      cartStore.clearCarts()
+      this.$reset()
       toast.success('Logout success', {
         onClose: () => {
-          console.log('toast test')
-          router.replace('/sign-in')
+          router.push('/sign-in')
         },
       })
-      this.$reset()
     },
   },
 })

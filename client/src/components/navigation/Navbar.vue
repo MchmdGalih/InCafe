@@ -2,7 +2,7 @@
   <header class="sticky inset-0 z-10">
     <div class="navbar bg-amber-900 py-4 text-white">
       <div class="flex-1">
-        <a class="btn btn-ghost text-2xl font-primary">InCafe</a>
+        <RouterLink to="/" class="btn btn-ghost text-2xl font-primary">InCafe</RouterLink>
       </div>
       <div class="flex gap-x-4">
         <div
@@ -39,9 +39,12 @@
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
               <img
-                v-if="isAuthenticated && profile"
+                v-if="isAuthenticated"
                 alt="Tailwind CSS Navbar component"
-                :src="profile.image"
+                :src="
+                  profile?.image ||
+                  'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
+                "
               />
               <img
                 v-else
@@ -79,15 +82,14 @@ import { useAuthStore } from '@/stores/auth'
 import { useStoreCart } from '@/stores/cart'
 import { useProfileStore } from '@/stores/profile'
 import { storeToRefs } from 'pinia'
+import { RouterLink } from 'vue-router'
 
 const storeCart = useStoreCart()
-const { carts } = storeToRefs(storeCart)
 const profileStore = useProfileStore()
-const { profile } = storeToRefs(profileStore)
-
-console.log('profile', profile.value)
 const store = useAuthStore()
 const { isAuthenticated } = storeToRefs(store)
+const { carts } = storeToRefs(storeCart)
+const { profile } = storeToRefs(profileStore)
 
 defineEmits(['toggle-cart'])
 

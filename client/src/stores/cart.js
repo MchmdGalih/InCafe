@@ -14,6 +14,7 @@ export const useStoreCart = defineStore('cart', {
         this.carts.push({
           ...product,
           qty: qty,
+          selected: false,
         })
       }
     },
@@ -33,6 +34,10 @@ export const useStoreCart = defineStore('cart', {
     },
     removeCart(id) {
       this.carts = this.carts.filter((item) => item.id !== id)
+    },
+
+    clearCarts() {
+      this.carts = []
     },
   },
 })

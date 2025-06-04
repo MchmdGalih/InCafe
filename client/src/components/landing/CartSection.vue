@@ -29,7 +29,13 @@
             <font-awesome-icon icon="fa-solid fa-trash" size="xl" class="text-red-600" />
           </button>
           <div class="flex items-center gap-x-2">
-            <input type="checkbox" name="checkbox" class="checkbox" />
+            <input
+              type="checkbox"
+              name="checkbox"
+              class="checkbox"
+              :checked="product.selected"
+              @change="handleToggleChecked(product.id)"
+            />
             <figure class="w-24 h-24">
               <img
                 :src="product.image_cover"
@@ -59,9 +65,11 @@
       </section>
       <div v-if="carts.length !== 0" class="sticky bottom-0 w-full lg:w-2/5 sm:w-2/4 bg-white p-4">
         <p class="font-secondary font-bold text-xl text-end mb-2 border-b-2">
-          Total: {{ formatToIdr(totalPriceItem) }}
+          Total: {{ formatToIdr(totalPrice) }}
         </p>
-        <button class="btn btn-md btn-neutral w-full">Checkout</button>
+        <button class="btn btn-md btn-success text-white w-full" @click="handleOrder">
+          Checkout ({{ selectedCount }})
+        </button>
       </div>
       <section
         v-else
@@ -77,6 +85,7 @@
 <script setup>
 import { formatToIdr } from '@/services/formatRp'
 import { useStoreCart } from '@/stores/cart'
+import { useOrderStore } from '@/stores/order'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { toast } from 'vue3-toastify'
@@ -90,7 +99,24 @@ defineProps({
 defineEmits(['close-cart'])
 
 const cartStore = useStoreCart()
+const orderStore = useOrderStore()
 const { carts } = storeToRefs(cartStore)
+
+const handleToggleChecked = (productId) => {
+  const product = carts.value.find((item) => item.id === productId)
+  if (product) {
+    product.selected = !product.selected
+  }
+}
+
+const totalPrice = computed(() => {
+  const subTotal = carts.value
+    .filter((item) => item.selected)
+    .reduce((acc, curr) => acc + curr.price * curr.qty, 0)
+  return subTotal
+})
+
+const selectedCount = computed(() => carts.value.filter((item) => item.selected).length)
 
 const handleIncrementQty = (productId) => {
   cartStore.increaseQty(productId)
@@ -104,9 +130,16 @@ const handleRemoveCarts = (productId) => {
   toast.success('Product removed from cart')
 }
 
-const totalPriceItem = computed(() => {
-  return carts.value.reduce((total, product) => total + product.price * product.qty, 0)
-})
+const handleOrder = () => {
+  const selectedItem = carts.value.filter((item) => item.selected)
+
+  if (selectedItem.length === 0) {
+    toast.warning('Please select at least one item.')
+    return
+  }
+
+  console.log('selectedItem ->', selectedItem)
+}
 </script>
 
 <style scoped>
