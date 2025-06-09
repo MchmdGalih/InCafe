@@ -21,8 +21,8 @@
       </header>
 
       <!-- Dynamic Content -->
-      <main class="flex-1 overflow-y-auto">
-        <slot name="content" />
+      <main class="flex-1 bg-gray-100 overflow-y-auto py-5 px-4">
+        <router-view></router-view>
       </main>
     </div>
   </div>

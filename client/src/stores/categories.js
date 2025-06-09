@@ -5,14 +5,14 @@ export const useCategoriesStore = defineStore('categories', {
   state: () => ({
     categories: [],
   }),
-
+  persist: true,
   actions: {
     async getAllCategories() {
       try {
         const response = await api.get('/category')
         const { data } = response.data
         this.categories = data
-        return response
+        return response.data
       } catch (error) {
         throw new error(error)
       }

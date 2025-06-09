@@ -26,27 +26,27 @@ const menus = [
     routes: '/dashboard',
   },
   {
-    name: 'User',
+    name: 'Users',
     icon: 'fa-solid fa-people-group',
     routes: '/dashboard/user',
   },
   {
-    name: 'Role',
+    name: 'Roles',
     icon: 'fa-solid fa-arrows-spin',
     routes: '/dashboard/role',
   },
   {
-    name: 'Category',
+    name: 'Categories',
     icon: 'fa-solid fa-arrows-to-circle',
-    routes: '/dashboard/category',
+    routes: '/dashboard/categories',
   },
   {
-    name: 'Product',
+    name: 'Products',
     icon: 'fa-solid fa-shop',
     routes: '/dashboard/product',
   },
   {
-    name: 'Order',
+    name: 'Orders',
     icon: 'fa-solid fa-receipt',
     routes: '/dashboard/order',
   },

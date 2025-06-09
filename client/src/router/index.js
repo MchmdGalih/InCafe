@@ -1,3 +1,6 @@
+import AdminLayout from '@/layouts/AdminLayout.vue'
+import CategoriesView from '@/views/admin/category/Categories/CategoriesView.vue'
+import DashboardView from '@/views/admin/DashboardView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -35,7 +38,24 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/views/admin/DashboardView.vue'),
+      component: AdminLayout,
+      children: [
+        {
+          path: '',
+          name: 'dashboard-home',
+          component: DashboardView,
+        },
+        {
+          path: 'users',
+          name: 'dashboard-users',
+          component: DashboardView,
+        },
+        {
+          path: 'categories',
+          name: 'dashboard-categories',
+          component: CategoriesView,
+        },
+      ],
     },
   ],
 })

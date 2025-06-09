@@ -14,4 +14,15 @@
   .hide-scrollbar {
     scrollbar-width: none;
   }
+
+  .customize-table {
+    --easy-table-header-background-color: transparent;
+    --easy-table-body-row-background-color: #fff;
+    --easy-table-footer-background-color: transparent;
+    border-radius: 10px;
+
+    --easy-table-header-height: 48px;
+    --easy-table-body-row-height: 48px;
+    --easy-table-border: none;
+  }
 }

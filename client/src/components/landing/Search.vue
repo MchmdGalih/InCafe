@@ -1,23 +1,28 @@
 <template>
-  <div>
-    <input
-      class="w-full border rounded-md p-2"
-      type="text"
-      placeholder="Searching.."
-      v-model="searchValue"
-      @input="handleSearchProduct"
-    />
-  </div>
+  <input
+    :class="`border rounded-sm p-2 ${props.classSearch}`"
+    type="text"
+    placeholder="Searching.."
+    v-model="searchValue"
+    @input="handleSearchQuery"
+  />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
+const props = defineProps({
+  classSearch: {
+    type: String,
+    default: 'w-full',
+  },
+})
+
 const searchValue = ref('')
 
 const emits = defineEmits(['handleSearch'])
 
-const handleSearchProduct = () => {
+const handleSearchQuery = () => {
   if (searchValue.value === '') return
   emits('handleSearch', searchValue.value)
 }
