@@ -64,7 +64,7 @@
               </RouterLink>
             </li>
             <li v-if="isAuthenticated && store?.currentUser?.role === 'admin'">
-              <RouterLink to="/">Dashboard</RouterLink>
+              <RouterLink to="/dashboard">Dashboard</RouterLink>
             </li>
             <li v-if="isAuthenticated">
               <button @click="handlerLogout" class="text-red-500 hover:underline">Logout</button>

@@ -10,9 +10,17 @@ export const api = axios.create({
 api.interceptors.request.use(
   function (config) {
     const token = useAuthStore()?.token
-    const alwaysAuthEndpoints = ['/profile']
+    const alwaysAuthEndpoints = ['/profile', '/role']
+
+    const restrictedEndpoints = ['/category']
 
     let requiresAuth = alwaysAuthEndpoints.some((endpoint) => config.url.startsWith(endpoint))
+
+    if (!requiresAuth) {
+      requiresAuth = restrictedEndpoints.some(
+        (endpoint) => config.url.startsWith(endpoint) && config.method.toLowerCase() !== 'get',
+      )
+    }
 
     if (requiresAuth && token) {
       config.headers.Authorization = `Bearer ${token}`

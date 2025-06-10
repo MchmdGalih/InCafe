@@ -28,7 +28,7 @@ import ProductSkeleton from '@/components/skeleton/ProductSkeleton.vue'
 import Search from './Search.vue'
 import { useProductStore } from '@/stores/product'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 const productsStore = useProductStore()
 const { products } = storeToRefs(productsStore)
 
@@ -63,11 +63,11 @@ const getProducts = async () => {
   }
 }
 
-watch(selectCategoryId, () => {
-  getProducts()
-})
-
-onMounted(() => {
-  getProducts()
-})
+watch(
+  selectCategoryId,
+  () => {
+    getProducts()
+  },
+  { immediate: true },
+)
 </script>
