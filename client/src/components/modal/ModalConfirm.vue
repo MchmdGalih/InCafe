@@ -3,11 +3,11 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">{{ props.title }}</h3>
       <div class="flex flex-col gap-y-2" v-if="props.titleBtn !== 'Delete'">
-        <label for="category" class="text-sm">Category</label>
+        <label for="category" class="text-sm">Name</label>
         <input
           type="text"
           class="input focus:outline-none"
-          placeholder="category..."
+          :placeholder="props.placeholder"
           v-model="model"
         />
         <small v-if="v$.name.$error" v-for="error in v$.name.$errors" class="text-red-700 text-xs">
@@ -46,6 +46,10 @@ const props = defineProps({
   typeAction: {
     type: String,
   },
+
+  placeholder: {
+    type: String,
+  },
 })
 
 const classBtn = computed(() => {
@@ -79,6 +83,7 @@ const handleClose = () => {
 }
 
 defineExpose({ openModal, handleClose })
+
 const sendEmits = () => {
   const validateType = props.typeAction === 'isAdd' || props.typeAction === 'isEdit'
   if (validateType) {

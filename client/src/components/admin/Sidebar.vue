@@ -28,12 +28,12 @@ const menus = [
   {
     name: 'Users',
     icon: 'fa-solid fa-people-group',
-    routes: '/dashboard/user',
+    routes: '/dashboard/users',
   },
   {
     name: 'Roles',
     icon: 'fa-solid fa-arrows-spin',
-    routes: '/dashboard/role',
+    routes: '/dashboard/roles',
   },
   {
     name: 'Categories',

@@ -8,7 +8,7 @@
       <CategorySection @select-category-id="handleSelectCategory" />
     </div>
 
-    <Search @handle-search="handleSearch" />
+    <Search @handle-search="handleSearch" class />
 
     <div v-if="products.length == 0 && !isLoading">
       <p class="text-center text-sm p-4">Sorry, products not available</p>

@@ -1,6 +1,7 @@
 <template>
   <ModalCategory
     ref="modalRef"
+    placeholder="category..."
     :title="configModal.title"
     :titleBtn="configModal.btnTitle"
     :typeAction="configModal.typeAction"
@@ -8,6 +9,7 @@
     @send-submit="handlerConfirmModal"
   />
   <div class="flex flex-col gap-y-2">
+    <h1 class="px-4 text-2xl font-secondary font-bold">Categories Management</h1>
     <section class="p-4 flex gap-2 justify-between items-center">
       <Search classSearch="w-[400px]" @handle-search="handleSearch" />
       <button
@@ -20,7 +22,7 @@
       </button>
     </section>
 
-    <section>
+    <section class="px-4">
       <EasyDataTable :headers="headers" :items="categoriesData" table-class-name="customize-table">
         <template #item-name="{ name }">
           <span class="capitalize">{{ name }}</span>
@@ -58,7 +60,7 @@ import { toast } from 'vue3-toastify'
 const categoryStore = useCategoriesStore()
 const { categories } = storeToRefs(categoryStore)
 
-const modalRef = ref()
+const modalRef = ref('')
 const categoryName = ref('')
 const categoryId = ref(null)
 const keyword = ref('')
@@ -114,7 +116,6 @@ const handlerShowModal = async (mode, item = '') => {
       })
       break
     case 'isDelete':
-      categoryName.value = item.name
       categoryId.value = item.id
       Object.assign(configModal, {
         typeAction: 'isDelete',
@@ -156,7 +157,7 @@ const handlerDeleteCategory = async () => {
     await categoryStore.deleteCategory(categoryId.value)
     toast.success('Success delete category')
   } catch (error) {
-    console.log(error)
+    toast.error(error.message)
   }
 }
 
