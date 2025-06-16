@@ -32,7 +32,7 @@ import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { computed, ref } from 'vue'
 
-const modalRef = ref()
+const modalRef = ref('')
 const props = defineProps({
   title: {
     type: String,

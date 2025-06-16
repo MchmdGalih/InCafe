@@ -6,14 +6,14 @@
         <p class="font-light">Welcome back! Please enter your details.</p>
       </div>
 
-      <div class="flex justify-center items-center gap-2">
-        <hr class="w-full h-2 font-bold" />
-        <font-awesome-icon icon="fa-solid fa-coffee" size="xl" class="text-amber-900" />
-
-        OR
-        <font-awesome-icon icon="fa-solid fa fa-cutlery" size="xl" class="text-amber-900" />
-        <hr class="w-full h-2 font-bold" />
+      <div class="flex w-full flex-col">
+        <div class="divider divider-neutral">
+          <font-awesome-icon icon="fa-solid fa-coffee" size="xl" class="text-amber-900" />
+          OR
+          <font-awesome-icon icon="fa-solid fa fa-cutlery" size="xl" class="text-amber-900" />
+        </div>
       </div>
+
       <form class="p-2" @submit.prevent="loginHandler">
         <div class="flex flex-col mb-2">
           <label for="email" class="font-secondary font-bold"> Email </label>
