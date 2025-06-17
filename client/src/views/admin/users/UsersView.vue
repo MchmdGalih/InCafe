@@ -49,12 +49,11 @@ import ModalUser from '@/components/modal/ModalUser.vue'
 import Search from '@/components/landing/Search.vue'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
-import { capitalize, nextTick, reactive, ref } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import { computed } from 'vue'
 import { onMounted } from 'vue'
 import { shallowReactive } from 'vue'
 import { toast } from 'vue3-toastify'
-import { capitalizeFirstLetter } from '@/services/helper'
 
 const userStore = useUserStore()
 const { users } = storeToRefs(userStore)

@@ -84,7 +84,7 @@
           <div>
             <select class="select select-primary w-full" v-model="formData.roleId">
               <option disabled value="">Pilih Role</option>
-              <option v-for="role in roles" :key="role.id" :value="role.name">
+              <option v-for="role in roles" :key="role.id" :value="role.id">
                 {{ role.name }}
               </option>
             </select>
