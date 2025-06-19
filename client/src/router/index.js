@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import CategoriesView from '@/views/admin/category/Categories/CategoriesView.vue'
 import DashboardView from '@/views/admin/DashboardView.vue'
 import RolesView from '@/views/admin/roles/RolesView.vue'
+import DetailUser from '@/views/admin/users/DetailUser.vue'
 import UsersView from '@/views/admin/users/UsersView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -56,6 +57,11 @@ const router = createRouter({
           path: 'users',
           name: 'dashboard-users',
           component: UsersView,
+        },
+        {
+          path: 'user/:id',
+          name: 'dashboard-user-detail',
+          component: DetailUser,
         },
         {
           path: 'categories',

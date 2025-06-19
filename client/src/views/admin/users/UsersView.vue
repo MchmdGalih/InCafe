@@ -22,7 +22,11 @@
         </template>
         <template #item-action="item">
           <div class="gap-x-2 inline-flex">
-            <RouterLink to="/" type="button" class="btn btn-circle btn-info btn-sm">
+            <RouterLink
+              :to="{ name: 'dashboard-user-detail', params: { id: item.id } }"
+              type="button"
+              class="btn btn-circle btn-info btn-sm"
+            >
               <font-awesome-icon icon="fa-solid fa-eye" />
             </RouterLink>
             <button type="button" class="btn btn-circle btn-warning btn-sm">
@@ -116,7 +120,7 @@ const showModal = async (mode, item = null) => {
         username: '',
         email: '',
         password: '',
-        roleId: '',
+        role: '',
       })
       break
     case 'isEdit':
@@ -129,7 +133,7 @@ const showModal = async (mode, item = null) => {
         username: item?.username || '',
         email: item?.email || '',
         password: '',
-        roleId: item?.roleId || '',
+        role: item?.roleId || '',
       })
       break
     case 'isDelete':
@@ -157,7 +161,7 @@ const createUser = async () => {
     username: formData.username,
     email: formData.email,
     password: formData.password,
-    roleId: formData.roleId,
+    role: formData.roleId,
   }
   try {
     await userStore.addUser(payload)
@@ -167,16 +171,40 @@ const createUser = async () => {
   }
 }
 
+const updateUser = async () => {
+  const payload = {
+    username: formData.username,
+    email: formData.email,
+    password: formData.password,
+    role: formData.roleId,
+  }
+  try {
+    await userStore.updateUser(userId.value, payload)
+    toast.success('Success update user!')
+  } catch (error) {
+    toast.error('Failed update user!')
+  }
+}
+
+const deleteUser = async () => {
+  try {
+    await userStore.deleteUser(userId.value)
+    toast.success('Success delete user!')
+  } catch (error) {
+    toas.error('Failed delete user!')
+  }
+}
+
 const handleSubmit = async (data) => {
   switch (true) {
     case data.isAdd:
-      await createUser(formData)
+      await createUser()
       break
     case data.isEdit:
-      await userStore.updateUser(userId.value, formData)
+      await updateUser()
       break
     case data.isDelete:
-      await userStore.deleteUser(userId.value)
+      await deleteUser()
       break
     default:
       break

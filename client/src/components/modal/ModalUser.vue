@@ -2,27 +2,7 @@
   <dialog ref="modalRef" class="modal">
     <div class="modal-box">
       <h3 class="text-lg font-bold mb-2">Form User</h3>
-      <!-- <div class="flex flex-col gap-y-2" v-if="props.titleBtn !== 'Delete'">
-        <label for="category" class="text-sm">Name</label>
-        <input
-          type="text"
-          class="input focus:outline-none"
-          :placeholder="props.placeholder"
-          v-model="model"
-        />
-        <small v-if="v$.name.$error" v-for="error in v$.name.$errors" class="text-red-700 text-xs">
-          {{ error.$message }}
-        </small>
-      </div>
-      <div v-else>
-        <p>Apakah anda yakin ingin menghapus data ini ?</p>
-      </div> -->
-      <!-- <div class="modal-action">
-        <form method="dialog " class="space-x-4">
-          <button :class="classBtn" @click.prevent="sendEmits">{{ props.titleBtn }}</button>
-          <button class="btn btn-outline" @click.prevent="handleClose">Close</button>
-        </form>
-      </div> -->
+
       <form @submit.prevent="handleSubmit" class="space-y-3">
         <template v-if="typeAction === 'isAdd' || typeAction === 'isEdit'">
           <div>
@@ -84,7 +64,7 @@
           <div>
             <select class="select select-primary w-full" v-model="formData.roleId">
               <option disabled value="">Pilih Role</option>
-              <option v-for="role in roles" :key="role.id" :value="role.id">
+              <option v-for="role in roles" :key="role.id" :value="role.name">
                 {{ role.name }}
               </option>
             </select>
@@ -116,7 +96,7 @@ import { useRoleStore } from '@/stores/roles'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, minLength } from '@vuelidate/validators'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
