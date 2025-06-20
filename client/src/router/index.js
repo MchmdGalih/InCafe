@@ -2,6 +2,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue'
 import { useAuthStore } from '@/stores/auth'
 import CategoriesView from '@/views/admin/category/Categories/CategoriesView.vue'
 import DashboardView from '@/views/admin/DashboardView.vue'
+import OrderView from '@/views/admin/order/OrderView.vue'
 import RolesView from '@/views/admin/roles/RolesView.vue'
 import DetailUser from '@/views/admin/users/DetailUser.vue'
 import UsersView from '@/views/admin/users/UsersView.vue'
@@ -72,6 +73,11 @@ const router = createRouter({
           path: 'roles',
           name: 'dashboard-roles',
           component: RolesView,
+        },
+        {
+          path: 'order',
+          name: 'dashboard-order',
+          component: OrderView,
         },
       ],
     },

@@ -12,7 +12,7 @@ api.interceptors.request.use(
     const token = useAuthStore()?.token
     const alwaysAuthEndpoints = ['/profile', '/role']
 
-    const restrictedEndpoints = ['/category', '/user']
+    const restrictedEndpoints = ['/category', '/user', '/order']
 
     let requiresAuth = alwaysAuthEndpoints.some((endpoint) => config.url.startsWith(endpoint))
 

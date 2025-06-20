@@ -64,10 +64,12 @@
                 Add to Cart
               </button>
               <button
-                @click="orderNow"
-                class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-300"
+                :disabled="isLoading"
+                @click="handleCheckout"
+                class="flex-1 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-300"
               >
-                Order Now
+                <span v-if="isLoading" class="loading loading-spinner text-white"></span>
+                <span v-else>Order Now</span>
               </button>
             </div>
           </div>
@@ -88,15 +90,21 @@ import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 const authStore = useAuthStore()
 const storeCart = useStoreCart()
-const { isAuthenticated } = storeToRefs(authStore)
+const profileStore = useProfileStore()
+const orderStore = useOrderStore()
+const { profile } = storeToRefs(profileStore)
+const { currentUser, isAuthenticated } = storeToRefs(authStore)
 import { toast } from 'vue3-toastify'
+import { useProfileStore } from '@/stores/profile'
+import { useOrderStore } from '@/stores/order'
+import { payWithMidtrans } from '@/services/midtransService'
 
 const route = useRoute()
 const id = route.params.id
 const product = ref({})
 const productStore = useProductStore()
-
 const qty = ref(1)
+const isLoading = ref(false)
 
 const handleAddCart = () => {
   storeCart.addItem(product.value, qty.value)
@@ -122,6 +130,49 @@ const classCategory = computed(() => {
   const key = product.value.Category?.name.toLowerCase() || ''
   return categoryColors[key] || 'text-blue-500'
 })
+
+const handleCheckout = async () => {
+  if (!isAuthenticated) {
+    toast.warning('Please login before ordering.')
+    return
+  }
+
+  if (!profile.value) {
+    toast.warning('Please complete your profile before ordering.')
+    return
+  }
+
+  const payload = {
+    userId: currentUser.value.id,
+    total_amount: product.value.price * qty.value,
+    items: [
+      {
+        id: product.value.id,
+        name: product.value.name,
+        price: product.value.price,
+        quantity: qty.value,
+      },
+    ],
+    firstName: profile.value.firstName,
+    lastName: profile.value.lastName,
+    email: currentUser.value.email,
+    phoneNumber: profile.value.phoneNumber,
+  }
+
+  try {
+    isLoading.value = !isLoading.value
+    const { snapToken } = await orderStore.createOrder(payload)
+    payWithMidtrans(snapToken, {
+      onSuccess: () => {
+        toast.success('Payment success!')
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  } finally {
+    isLoading.value = !isLoading.value
+  }
+}
 
 onMounted(() => {
   handleGetProductById()

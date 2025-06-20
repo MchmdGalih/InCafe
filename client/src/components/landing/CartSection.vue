@@ -67,8 +67,13 @@
         <p class="font-secondary font-bold text-xl text-end mb-2 border-b-2">
           Total: {{ formatToIdr(totalPrice) }}
         </p>
-        <button class="btn btn-md btn-success text-white w-full" @click="handleOrder">
-          Checkout ({{ selectedCount }})
+        <button
+          class="btn btn-md btn-success text-white w-full"
+          @click="handleOrder"
+          :disabled="isLoading"
+        >
+          <span v-if="isLoading" class="loading loading-spinner text-white"></span>
+          <span v-else>Checkout ({{ selectedCount }})</span>
         </button>
       </div>
       <section
@@ -84,9 +89,13 @@
 
 <script setup>
 import { formatToIdr } from '@/services/formatRp'
+import { payWithMidtrans } from '@/services/midtransService'
+import { useAuthStore } from '@/stores/auth'
 import { useStoreCart } from '@/stores/cart'
 import { useOrderStore } from '@/stores/order'
+import { useProfileStore } from '@/stores/profile'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { computed } from 'vue'
 import { toast } from 'vue3-toastify'
 
@@ -101,6 +110,12 @@ defineEmits(['close-cart'])
 const cartStore = useStoreCart()
 const orderStore = useOrderStore()
 const { carts } = storeToRefs(cartStore)
+const authStore = useAuthStore()
+const profileStore = useProfileStore()
+const { currentUser, isAuthenticated } = storeToRefs(authStore)
+const { profile } = storeToRefs(profileStore)
+
+const isLoading = ref(false)
 
 const handleToggleChecked = (productId) => {
   const product = carts.value.find((item) => item.id === productId)
@@ -130,7 +145,7 @@ const handleRemoveCarts = (productId) => {
   toast.success('Product removed from cart')
 }
 
-const handleOrder = () => {
+const handleOrder = async () => {
   const selectedItem = carts.value.filter((item) => item.selected)
 
   if (selectedItem.length === 0) {
@@ -138,7 +153,47 @@ const handleOrder = () => {
     return
   }
 
-  console.log('selectedItem ->', selectedItem)
+  if (!isAuthenticated) {
+    toast.warning('Please login before ordering.')
+    return
+  }
+
+  if (!profile.value) {
+    toast.warning('Please complete your profile before ordering.')
+    return
+  }
+
+  const payload = {
+    userId: currentUser.value.id,
+    total_amount: totalPrice.value,
+    items: selectedItem.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.qty,
+    })),
+    firstName: profile.value.firstName,
+    lastName: profile.value.lastName,
+    email: currentUser.value.email,
+    phoneNumber: profile.value.phoneNumber,
+  }
+
+  try {
+    isLoading.value = !isLoading.value
+    const { snapToken } = await orderStore.createOrder(payload)
+
+    payWithMidtrans(snapToken, {
+      onSuccess: () => {
+        cartStore.clearCarts()
+        carts.value = carts.value.filter((item) => !item.selected)
+        toast.success('Payment success!')
+      },
+    })
+  } catch (error) {
+    console.log('error', error)
+  } finally {
+    isLoading.value = !isLoading.value
+  }
 }
 </script>
 
