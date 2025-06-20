@@ -10,7 +10,8 @@ export const useOrderStore = defineStore('order', {
     async fetchAllOrder() {
       try {
         const response = await api.get('/order')
-        console.log('response store', response.data)
+        this.orders = response.data.data
+        return response.data
       } catch (error) {
         console.log('test', error)
       }
@@ -20,6 +21,15 @@ export const useOrderStore = defineStore('order', {
       try {
         const response = await api.post('/order', payload)
         return response.data.data
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
+
+    async getOrderById(id) {
+      try {
+        const response = await api.get(`/order/${id}`)
+        return response.data
       } catch (error) {
         throw new Error(error)
       }

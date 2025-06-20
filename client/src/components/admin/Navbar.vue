@@ -20,11 +20,11 @@
           <div class="w-20 rounded-full">
             <img
               alt="Tailwind CSS Navbar component"
-             :src="
-                  profile?.image ||
-                  'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
-                "
-              />
+              :src="
+                profile?.image ||
+                'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
+              "
+            />
             />
           </div>
         </div>
@@ -54,7 +54,6 @@ const profileStore = useProfileStore()
 
 const { profile } = storeToRefs(profileStore)
 
-console.log('test', profile)
 const emits = defineEmits('toggle-sidebar')
 
 const toggleSidebar = () => {
