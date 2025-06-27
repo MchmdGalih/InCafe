@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import CategoriesView from '@/views/admin/category/Categories/CategoriesView.vue'
 import DashboardView from '@/views/admin/DashboardView.vue'
 import OrderView from '@/views/admin/order/OrderView.vue'
+import ProductView from '@/views/admin/product/ProductView.vue'
 import RolesView from '@/views/admin/roles/RolesView.vue'
 import DetailUser from '@/views/admin/users/DetailUser.vue'
 import UsersView from '@/views/admin/users/UsersView.vue'
@@ -78,6 +79,11 @@ const router = createRouter({
           path: 'order',
           name: 'dashboard-order',
           component: OrderView,
+        },
+        {
+          path: 'product',
+          name: 'dashboard-product',
+          component: ProductView,
         },
       ],
     },

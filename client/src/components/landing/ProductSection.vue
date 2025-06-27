@@ -8,15 +8,22 @@
       <CategorySection @select-category-id="handleSelectCategory" />
     </div>
 
-    <Search @handle-search="handleSearch" class />
+    <Search @handle-search="handleSearch" />
 
-    <div v-if="products.length == 0 && !isLoading">
-      <p class="text-center text-sm p-4">Sorry, products not available</p>
+    <div v-if="isLoading">
+      <div class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4">
+        <ProductSkeleton v-for="n in 6" :key="n" />
+      </div>
     </div>
 
-    <div class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4" v-else>
-      <ProductSkeleton v-if="isLoading" v-for="i in 6" :key="i" />
-      <ProductCard v-for="product in filterdProducts" :key="product.id" :product="product" v-else />
+    <div v-else>
+      <div
+        v-if="filterdProducts.length > 0"
+        class="py-4 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-4"
+      >
+        <ProductCard v-for="product in filterdProducts" :key="product.id" :product="product" />
+      </div>
+      <div v-else class="text-center text-gray-500 mt-10">Sorry, products not available.</div>
     </div>
   </section>
 </template>
@@ -34,6 +41,7 @@ const { products } = storeToRefs(productsStore)
 
 const selectCategoryId = ref(null)
 const keyword = ref('')
+
 const handleSelectCategory = (id) => {
   return (selectCategoryId.value = id)
 }
