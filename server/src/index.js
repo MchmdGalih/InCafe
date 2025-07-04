@@ -13,7 +13,8 @@ app.use("/api/v1", mainRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from Vercel!");
-  
 });
+
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
 
 module.exports = app;

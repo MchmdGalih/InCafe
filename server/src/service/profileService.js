@@ -10,6 +10,8 @@ const getProfileById = async (id) => {
     where: { userId: id },
   });
 
+  console.log('id service', id)
+
   if (!profile) {
     throw Error("Gagal mendapatkan profile, profile tidak ditemukan");
   }

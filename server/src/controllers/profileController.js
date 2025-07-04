@@ -8,6 +8,8 @@ const {
 const getProfileHandler = async (req, res) => {
   try {
     const { id } = req.params;
+
+    console.log("id controller", id);
     const profile = await getProfileById(id);
     return res
       .status(200)

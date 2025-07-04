@@ -116,8 +116,6 @@ const deleteOrderService = async (orderId) => {
   const order = await getOrderByIdService(orderId);
 
   await order.destroy();
-
-  return order;
 };
 
 const notificationStatusService = async (payload) => {
