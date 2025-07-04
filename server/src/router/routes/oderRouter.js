@@ -12,12 +12,7 @@ const orderRouter = express.Router();
 orderRouter.post("", authCheck, createOrderHandler);
 orderRouter.get("", getAllOrderHandler);
 orderRouter.get("/:id", getOrderByIdHandler);
-orderRouter.delete(
-  "/delete/:id",
-  authCheck,
-  getAllOrderHandler,
-  deleteOrderHandler
-);
+orderRouter.delete("/delete/:id", authCheck, deleteOrderHandler);
 orderRouter.post("/payment-notification", notificationHandler);
 
 module.exports = { orderRouter };
