@@ -107,6 +107,7 @@ const handlerDeleteOrder = async () => {
   try {
     await orderStore.deleteOrder(orderId.value)
     toast.success('Success delete order')
+    return true
   } catch (error) {
     toast.error('Failed delete order')
   }

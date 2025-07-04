@@ -43,5 +43,5 @@ export const useOrderStore = defineStore('order', {
         throw new Error(error)
       }
     },
-  },
+  }, 
 })
