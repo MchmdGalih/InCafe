@@ -1,4 +1,11 @@
 <template>
+  <DeleteModal
+    ref="modalRef"
+    :title="configModal.title"
+    :titleBtn="configModal.btnTitle"
+    :typeAction="configModal.typeAction"
+    @send-submit="handlerConfirmModal"
+  />
   <div class="space-y-5">
     <h1 class="px-4 text-2xl font-secondary font-bold">Order Management</h1>
 
@@ -40,14 +47,18 @@
 
 <script setup>
 import Search from '@/components/landing/Search.vue'
+import DeleteModal from '@/components/modal/ModalConfirm.vue'
 import { useOrderStore } from '@/stores/order'
+import { toast } from 'vue3-toastify'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { ref, shallowReactive } from 'vue'
 import { computed, onMounted } from 'vue'
 
 const orderStore = useOrderStore()
 const { orders } = storeToRefs(orderStore)
+const modalRef = ref('')
 const keyword = ref('')
+const orderId = ref('')
 
 const headers = [
   { text: 'Order ID', value: 'midtransOrderId' },
@@ -61,6 +72,12 @@ const handleSearch = (value) => {
   keyword.value = value
 }
 
+const configModal = shallowReactive({
+  typeAction: '',
+  title: '',
+  btnTitle: '',
+})
+
 const dataOrders = computed(() => {
   return orders.value
     .map((order) => ({
@@ -72,6 +89,37 @@ const dataOrders = computed(() => {
     }))
     .filter((order) => order.username.toLowerCase().includes(keyword.value.toLowerCase()))
 })
+
+const showModal = (mode, item) => {
+  if (mode === 'isDelete') {
+    orderId.value = item.id
+    Object.assign(configModal, {
+      typeAction: 'isDelete',
+      title: 'Delete Order',
+      btnTitle: 'Delete',
+    })
+  }
+
+  modalRef.value.openModal()
+}
+
+const handlerDeleteOrder = async () => {
+  try {
+    await orderStore.deleteOrder(orderId.value)
+    toast.success('Success delete order')
+  } catch (error) {
+    toast.error('Failed delete order')
+  }
+}
+
+const handlerConfirmModal = async (data) => {
+  if (data.isDelete) {
+    const success = await handlerDeleteOrder()
+    if (success) {
+      await fetchOrder()
+    }
+  }
+}
 
 const fetchOrder = async () => {
   try {
